@@ -1,0 +1,37 @@
+version: '3'
+services:
+  db:
+    image: mysql
+    ports:
+      - "3306"
+    expose:
+      - "3306"
+    volumes:
+      - ./data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: s3d
+      MYSQL_USER: s3d
+      MYSQL_PASSWORD: s3d
+
+  php:
+    build: ./php-fpm
+    expose:
+      - "9000"
+    volumes:
+      - ./project/src:/var/www/project
+    links:
+      - db
+
+  nginx:
+    build: ./nginx
+    links:
+      - php
+    ports:
+      - "81:80"
+    volumes:
+      - ./logs/nginx/:/var/log/nginx
+      - ./project/src:/var/www/project
+
+volumes:
+  data-volume:
