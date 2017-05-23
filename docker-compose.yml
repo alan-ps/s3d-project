@@ -32,6 +32,3 @@ services:
     volumes:
       - ./logs/nginx/:/var/log/nginx
       - ./project/src:/var/www/project
-
-volumes:
-  data-volume:
