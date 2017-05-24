@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+docker-compose exec --user root php bash -ci "php /var/www/project/bin/console $@"
